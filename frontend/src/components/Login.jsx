@@ -47,6 +47,7 @@ const Login = () => {
         }
         window.location.href = "/dashboard"
         localStorage.setItem("name", response.data.name)
+        localStorage.setItem("isAdmin", response.data.isAdmin)
       }
     } catch (err) {
       console.error("Error en login:", err.response?.data || err.message)

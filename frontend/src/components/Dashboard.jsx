@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar';
 import './Dashboard.css'
 
 const Dashboard = () => {
+    const [isAdmin, setIsAdmin] = useState(false);
     const token = localStorage.getItem("token");
+
+    useEffect(() => {
+      const admin = localStorage.getItem("isAdmin");
+
+      if(admin && admin === "true") {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
+      
+    }, []);
+  
 
     if(!token) {
         window.location.href = "/login"
@@ -18,6 +31,7 @@ const Dashboard = () => {
         <aside className="sidebar">
           <ul>
             <li><a href="#dashboard">Dashboard</a></li>
+            {isAdmin ? <li><a href="/admin">Admin</a></li> : <div></div>}
            
           </ul>
         </aside>

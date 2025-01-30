@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
 
@@ -16,7 +16,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-links">
         <a href="#profile">Profile</a>
-        <a href="#settings" onClick={closeSession}>Cerrar Sesión</a>
+        <a href="#" onClick={closeSession}>Cerrar Sesión</a>
       </div>
     </header>
   );

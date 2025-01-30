@@ -11,7 +11,7 @@ exports.register = async (req, res) => {
       return res.status(400).json({ errors: errors.array() })
     }
 
-    const { name, email, password } = req.body
+    const { name, email, password, isAdmin } = req.body
 
     // Check if user exists
     let user = await User.findOne({ email })
@@ -24,6 +24,7 @@ exports.register = async (req, res) => {
       name,
       email,
       password,
+      isAdmin
     })
 
     // Hash password
@@ -43,7 +44,7 @@ exports.register = async (req, res) => {
 
     jwt.sign(payload, process.env.JWT_SECRET || "your-secret-key", { expiresIn: "1h" }, (err, token) => {
       if (err) throw err
-      res.json({ token, name })
+      res.json({ token, name, isAdmin })
     })
   } catch (err) {
     console.error("Error en registro:", err.message)
@@ -89,7 +90,8 @@ exports.login = async (req, res) => {
 
     jwt.sign(payload, process.env.JWT_SECRET || "your-secret-key", { expiresIn: "1h" }, (err, token) => {
       if (err) throw err
-      res.json({ token, name: user.name })
+      console.log(user.isAdmin);
+      res.json({ token, name: user.name, isAdmin: user.isAdmin })
     })
   } catch (err) {
     console.error("Error en login:", err.message)
