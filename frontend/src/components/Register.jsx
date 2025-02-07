@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import { Link } from 'react-router-dom';
-
-import axios from "axios"
-import './Register.css'
+import logo from './logo.jpg';
+import './Register.css' 
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const [email, setEmail] = useState("")
@@ -10,6 +10,7 @@ const Register = () => {
     const [name, steName] = useState("")
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false)
+    const navigate = useNavigate();
   
     const handleSubmit = async (e) => {
       e.preventDefault()
@@ -35,10 +36,11 @@ const Register = () => {
   
         console.log("Respuesta del servidor:", response.data.token ? "Token recibido" : "Sin token")
   
-        if (response.data.token) {
-          localStorage.setItem("token", response.data.token)
-          window.location.href = "/dashboard?name=" + response.data.name
-        }
+        if(response.data.token) {
+          localStorage.setItem("token", response.data.token);
+          navigate('/login'); // Redirige a /login
+         
+      }
       } catch (err) {
         console.error("Error en registro:", err.response?.data || err.message)
   
@@ -55,7 +57,11 @@ const Register = () => {
     return (
       <div className="registro-container">
         <div className="registro-card">
-          <h1 className="registro-title">Inicia tu Registro</h1>
+        <div className="logo-container"> {/* Contenedor para el logo */}
+                    <img src={logo} alt="ManagP Logo" className="logo"/>
+                </div>
+        <h1 className="registro-title">ManagP</h1>
+          <h2 className="registro-title">Inicia tu Registro</h2>
           <form onSubmit={handleSubmit}>
             <label htmlFor="email" className="registro-label">Correo Electrónico</label>
             <input
@@ -95,7 +101,7 @@ const Register = () => {
               required
             />
             
-            <button type="submit" className="login-button">registarse</button>
+            <button type="submit" className="login-button">Registar Cuenta</button>
           </form>
 
           {error && (
