@@ -113,3 +113,14 @@ body {
   .login-links a:hover {
     text-decoration: underline;
   }
+.logo-container {
+    display: flex;
+    justify-content: flex-start; 
+}
+
+.logo {
+    width: 60px;
+    height: auto;
+    margin-right: 10px;
+    margin-bottom: 20px; 
+}
